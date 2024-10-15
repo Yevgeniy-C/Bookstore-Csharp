@@ -1,0 +1,138 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Магазин БХВ</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Resunet.styles.css" asp-append-version="true" />
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400&amp;subset=cyrillic" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar navbar-light navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="/data/Logo_BHV_2023.png" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link " href="/">Новости</a>
+                        </li>
+                        @await Component.InvokeAsync("MainMenu")
+                    </ul>
+                </div>
+                @await Component.InvokeAsync("CartWidget")
+            </nav>
+        </div>
+    </header>
+    <div class="topsearch">
+        <div class="container">
+            <form method="GET" action="/search/index">
+                <input type="text" name="searchFor" class="form-control text" id="searchFor" 
+                    onkeyup="estore.catalog.quicksearch('#searchFor', '.searchresults')"
+                />
+                <button class="button">Найти</button>
+            </form>
+            <div class="searchresults d-none">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container content">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 col-lg-3">
+                    <h4>Издательство</h4>
+                    <ul>
+                        <li><a href="/about">О нас</a></li>
+                        <li><a href="/news">Новости</a></li>
+                    </ul>
+
+                    <ul>
+                        <li><a href="/priglashaem-avtorov">Приглашаем авторов</a></li>
+                        <li><a href="/reclama">Для рекламодателей</a></li>
+                        <li><a href="/vacancii">Вакансии</a></li>
+                        <li><a href="/contact-us">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h4>Магазин</h4>
+
+                    <ul>
+                        <li><a href="/faq">Вопросы и ответы</a></li>
+                        <li><a href="/dostavka">Оплата и доставка</a></li>
+                        <li><a href="/gde-kupit">Где купить</a></li>
+                        <li><a href="/prajs-listy">Прайс лист</a></li>
+                        <li><a href="/rekvizity">Реквизиты</a></li>
+                    </ul>
+
+                    <ul>
+                        <li><a href="/sovmestnye-pokupki">Совместные покупки</a></li>
+                    </ul>
+
+                    <ul>
+                        <li><a href="/soglashenie-o-prodazhe-tovarov">Соглашение о продаже</a></li>
+                        <li><a href="/politika-konfidentsialnosti">Политика конфиденциальности</a></li>
+                    </ul>
+                </div>
+
+                <div class="col-md-6 col-lg-3">
+                    <h4>Присоединяйтесь</h4>
+
+                    <a href="https://vk.com/club642726">
+                        <img role="img" alt="Детская редакция БХВ" width="104" height="32" data-src="https://bhv.ru/wp-content/uploads/2020/02/vk_deti.svg" class="alignleft wp-image-86261 lazyloaded" src="https://bhv.ru/wp-content/uploads/2020/02/vk_deti.svg"><noscript>
+                            <img class="alignleft wp-image-86261" role="img"
+                                 src="https://bhv.ru/wp-content/uploads/2020/02/vk_deti.svg" alt="Детская редакция БХВ"
+                                 width="104" height="32" />
+                        </noscript>
+                    </a>
+                    <a href="http://vk.com/bhvspb">
+                        <img role="img" alt="Компьютерная редакция БХВ" width="129" height="32" data-src="https://bhv.ru/wp-content/uploads/2020/02/vk_PC.svg" class="alignleft wp-image-86257 lazyloaded" src="https://bhv.ru/wp-content/uploads/2020/02/vk_PC.svg"><noscript>
+                            <img class="alignleft wp-image-86257" role="img"
+                                 src="https://bhv.ru/wp-content/uploads/2020/02/vk_PC.svg" alt="Компьютерная редакция БХВ" width="129" height="32" />
+                        </noscript>
+                    </a>
+
+                    <hr />
+
+                    <ul>
+                        <li><a href="/login">Войти</a></li>
+                        <li><a href="/register">Регистрация</a></li>
+                        <li><a href="/my-account/">Мой аккаунт</a></li>
+                        <li><a href="/my-account/orders">Счета</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-lg-3">
+                    <h4>Оплата и доставка</h4>
+                    <a href="https://bhv.ru/oplata/"><img role="img" alt="" style="width:100%;max-width:300px;max-height:300px" data-src="https://bhv.ru/wp-content/uploads/2019/10/Oplata_new.svg" class="alignnone size-medium wp-image-73321 ls-is-cached lazyloaded" src="https://bhv.ru/wp-content/uploads/2019/10/Oplata_new.svg"><noscript><img class="alignnone size-medium wp-image-73321" role="img" src="https://bhv.ru/wp-content/uploads/2019/10/Oplata_new.svg" alt="" width="300" height="300" /></noscript></a>
+
+                    <a href="https://bhv.ru/dostavka/"><img alt="" style="width:100%;max-width:300px" data-src="https://bhv.ru/wp-content/uploads/2020/03/my-sdek.svg" class="alignnone size-medium wp-image-16393 ls-is-cached lazyloaded" src="https://bhv.ru/wp-content/uploads/2020/03/my-sdek.svg"><noscript><img class="alignnone size-medium wp-image-16393" src="https://bhv.ru/wp-content/uploads/2020/03/my-sdek.svg" alt="" width="300" height="113" /></noscript></a>
+                </div>
+            </div>
+            <hr/>
+            <div class="row">
+                <div class="col-md-12">
+                    &copy; 2023 - БХВ
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

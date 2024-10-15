@@ -1,0 +1,13 @@
+﻿@model List<Estore.BL.Models.BreadcrumpModel>
+
+<div class="breadcrump">
+    @for (int i = 0; i < Model.Count; i++)
+    {
+        if (i > 0)
+        {
+            <text> / </text>
+        }
+
+        <a href="@Model[i].Link">@Model[i].Name</a>
+    }
+</div>

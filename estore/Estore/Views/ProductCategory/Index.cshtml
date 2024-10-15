@@ -1,0 +1,33 @@
+﻿@model CatalogViewModel;
+
+@if (Model.Breadcrumps != null && Model.Breadcrumps.Count() > 0)
+{
+    await Html.RenderPartialAsync("Breadcrumps", Model.Breadcrumps);
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-@if (Model.ChildCategories?.Count > 0) { <text>9</text> } else { <text>12</text> } ">
+        @{await Html.RenderPartialAsync("Pagination", Model.Pagination);}
+        <div class="row">
+            @foreach (var product in Model.Products)
+            {
+                await Html.RenderPartialAsync("ProductCard", product);
+            }
+        </div>
+        @{await Html.RenderPartialAsync("Pagination", Model.Pagination);}
+    </div>
+
+    @if (Model.ChildCategories?.Count > 0)
+    {
+        <div class="category-list col-md-3">
+            <ul>
+                @foreach (var category in Model.ChildCategories)
+                {
+                    <li><a href="@Model.Pagination.BaseUrl/@category.CategoryUniqueId" class="category-item">@category.CategoryName</a></li>
+                }
+            </ul>
+        </div>
+    }
+</div>

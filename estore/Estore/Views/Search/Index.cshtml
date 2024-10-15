@@ -1,0 +1,21 @@
+@model CatalogViewModel;
+
+@if (Model.Breadcrumps != null && Model.Breadcrumps.Count() > 0)
+{
+    await Html.RenderPartialAsync("Breadcrumps", Model.Breadcrumps);
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        @{await Html.RenderPartialAsync("Pagination", Model.Pagination);}
+        <div class="row">
+            @foreach (var product in Model.Products)
+            {
+                await Html.RenderPartialAsync("ProductCard", product);
+            }
+        </div>
+        @{await Html.RenderPartialAsync("Pagination", Model.Pagination);}
+    </div>
+</div>

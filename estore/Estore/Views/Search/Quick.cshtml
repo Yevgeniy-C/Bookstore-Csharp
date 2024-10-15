@@ -1,0 +1,8 @@
+@model IEnumerable<Estore.DAL.Models.ProductCardModel>;
+
+<div class="row">
+    @foreach (var product in Model)
+    {
+        await Html.RenderPartialAsync("ProductCard", product);
+    }
+</div>

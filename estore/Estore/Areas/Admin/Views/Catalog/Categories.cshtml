@@ -1,0 +1,23 @@
+﻿@model Estore.ViewModels.CategoryViewModel
+
+
+<div class="row">
+    <div class="col-md-9">
+        <h1>Категории товаров</h1>
+        <ul>
+            @foreach (var category in Model.Categories)
+            {
+                <li><a href="@Model.BaseUrl/@category.CategoryUniqueId">@category.CategoryName</a> (@category.CategoryUniqueId)</li>
+            }
+        </ul>
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="categoryid" value="@Model.CurrentCategoryId" />
+            <input type="text" name="name" value="" />
+            <button class="button">Добавить</button>
+        </form>
+    </div>
+    <div class="col-md-3">
+        @{await Html.RenderPartialAsync("CatalogMenu");}
+    </div>
+</div>

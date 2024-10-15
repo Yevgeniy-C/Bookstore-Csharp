@@ -1,0 +1,49 @@
+﻿@model Estore.BL.Models.UserCartModel;
+
+@{
+    ViewData["Title"] = "Корзина покупок на сайте БХВ";
+    int index = 0;
+}
+
+<h1>Корзина</h1>
+@if (Model.Items != null && Model.Items.Count > 0)
+{
+    @foreach (var product in Model.Items)
+    {
+        <div class="cart-list row">
+            @{ index++; }
+
+            <div class="col-md-2 col-2">
+                <a href="/product/@product.ProductUniqueId"><img src="@product.ProductImage" class="product-image" /></a>
+            </div>
+            <div class="col-md-8 col-10">
+                <h3>@product.ProductName</h3>
+                <div>@product.Price руб.</div>
+                <form action="/cart/update" method="post" id="remove-form-@index">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="productid" value="@product.ProductId" />
+                    <input type="hidden" name="productCount" value="0" />
+                    [<a href="javascript:void(0)" onclick="document.getElementById('remove-form-@index').submit();">Удалить</a>]
+                </form>
+            </div>
+            <div class="col-md-2" style="text-align:center;">
+                Количество:
+                <form action="/cart/update" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="productid" value="@product.ProductId" />
+                    <input type="text" name="productCount" value="@product.ProductCount" style="width:130px; text-align:center" />
+                    <button class="button">Обновить</button>
+                </form>
+            </div>
+        </div>
+        <hr />
+    }
+    <p>
+        <div class="cart-list row">
+            <div class="col-md-2 offset-md-10" style="text-align:center;">
+                Сумма: <b>@Model.Total</b> руб.
+                <a href="/checkout/address" class="button">Оформить</a>
+            </div>
+        </div>
+    </p>
+}

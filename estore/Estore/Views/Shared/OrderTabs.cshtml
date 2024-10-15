@@ -1,0 +1,12 @@
+@model OrderTabStep.OrderTabStepEnum
+
+<ul class="nav nav-tabs justify-content-center order-tabs">
+    @foreach (var tab in OrderTabViewModel.OrderTabViewList) {
+        if (Model == tab.Step) {
+            <li><a class="nav-link active" href="@tab.Url">@tab.Title</a></li>
+        }
+        else {
+            <li><a class="nav-link" href="@tab.Url">@tab.Title</a></li>
+        }
+    }
+</ul>

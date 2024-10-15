@@ -1,0 +1,113 @@
+﻿@model Estore.BL.Models.CompleteProductDataModel
+
+@{
+    ViewData["Title"] = Model.Product.ProductName;
+}
+
+@if (Model.Breadcrumps != null && Model.Breadcrumps.Count() > 0)
+{
+    await Html.RenderPartialAsync("Breadcrumps", Model.Breadcrumps);
+}
+
+<h1>@Model.Product.ProductName</h1>
+@if (Model.Autors != null && Model.Autors.Count > 0)
+{
+    <div class="authors-list">
+        Авторы:
+        @foreach (var autor in Model.Autors)
+        {
+            <a href="/author/@autor.UniqueId">@autor.LastName @autor.FirstName @autor.MiddleName</a>
+        }
+    </div>
+}
+<div class="row">
+    <div class="col-md-4 order-sm-1">
+        <img src="@Model.Product.ProductImage" alt="@Model.Product.ProductName" class="product-image" />
+    </div>
+
+    <div class="col-md-8 order-sm-0">
+        <table class="table table-striped">
+            <tr>
+                <td>Год</td>
+                <td>@Model.Product.ReleaseDate.ToString("dd MM yyyy")</td>
+            </tr>
+
+            @foreach (var detail in Model.ProductDetails)
+            {
+                <tr>
+                    <td>@detail.ParamName</td>
+                    <td>@detail.StringValue</td>
+                </tr>
+            }
+
+            @if (Model.Serie != null)
+            {
+                <tr>
+                    <td>Серия</td>
+                    <td><a href="/product-serie/@Model.Serie.SerieName">@Model.Serie.SerieName</a></td>
+                </tr>
+            }
+        </table>
+
+        <div class="buy-now">
+            <div class="price-big">
+                <div class="price">@Model.Product.Price руб</div>
+                <form action="/cart/add" method="post">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="productid" value="@Model.Product.ProductId" />
+                    <button type="button" class="button" onclick="estore.catalog.addToCart(@Model.Product.ProductId)">Купить</button>
+                </form>
+            </div>
+        </div>
+
+        <p>@Model.Product.Description</p>
+    </div>
+</div>
+
+@if (Model.Autors != null && Model.Autors.Count > 0)
+{
+    <hr />
+    <h2>Авторы:</h2>
+    <div class="row">
+        @foreach (var autor in Model.Autors)
+        {
+            <div class="col-md-2">
+                <img src="@autor.AuthorImage" class="author-image" alt="@autor.FirstName @autor.MiddleName @autor.LastName" title="@autor.FirstName @autor.MiddleName @autor.LastName" />
+            </div>
+            <div class="col-md-10">
+                <h4><a href="/author/@autor.UniqueId">@autor.FirstName @autor.MiddleName @autor.LastName</a></h4>
+                <p>@autor.Description</p>
+            </div>
+        }
+    </div>
+}
+
+
+<hr />
+<h2>Отзывы:</h2>
+<div class="row">
+    @if (ViewBag.CurrentUserId != null) {
+        <form method="post">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="rating" id="rating" />
+            <div class="stars">
+                <span class="star star5" data-value="5"></span>
+                <span class="star star4" data-value="4"></span>
+                <span class="star star3" data-value="3"></span>
+                <span class="star star2" data-value="2"></span>
+                <span class="star star1" data-value="1"></span>
+            </div>
+            <textarea class="form-control" style="height:200px" name="review" placeholder="Отзыв"></textarea>
+            <button class="button">Сохранить</button>
+        </form>
+    }
+    else {
+        <div class="text-center big-message-box">Авторизуйтесь, чтобы оставить свой отзыв</div>
+    }
+</div>
+
+@section Scripts {
+    <script>
+        document.querySelectorAll('.stars > .star').forEach(e => e.onclick = estore.catalog.rate)
+    </script>
+}

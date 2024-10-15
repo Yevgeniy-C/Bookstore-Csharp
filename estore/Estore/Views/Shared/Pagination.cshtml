@@ -1,0 +1,22 @@
+﻿@model PaginationViewModel
+
+<div class="navigation row">
+    <div class="col-md-4">
+        Найдено @Model.TotalCount
+    </div>
+    <div class="col-md-4">
+    </div>
+    <div class="col-md-4 pages">
+        @for (int index = 1; index <= Model.TotalPages; index++)
+        {
+            if (index == Model.Page)
+            {
+                <span class="current-page">@index</span>
+            }
+            else
+            { 
+                <a href="@Model.BaseUrl?page=@index&@Model.AdditionalParameters">@index</a>
+            }
+        }
+    </div>
+</div>

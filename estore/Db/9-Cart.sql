@@ -1,0 +1,1 @@
+alter table Cart alter column UserId DROP NOT NULL;

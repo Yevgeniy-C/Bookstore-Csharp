@@ -1,0 +1,87 @@
+@model Estore.ViewModels.BillingViewModel;
+
+@{
+    ViewData["Title"] = "Оплата товара";
+}
+
+@{
+    await Html.RenderPartialAsync("OrderTabs", OrderTabStep.OrderTabStepEnum.Billing);
+}
+
+<h1>Оплата Товара</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <form action="/checkout/billing" method="POST">
+            @Html.AntiForgeryToken()
+            <div class="form-group pb-3">
+                <label>Метод оплаты</label>
+                <select name="CardType" class="form-control">
+                    @foreach (int t in Enum.GetValues(typeof(Estore.ViewModels.BillingViewModel.CardTypeEnum))) {
+                        if (t == (int)Model.CardType) {
+                            <option selected value="@t">@Enum.GetName(typeof(Estore.ViewModels.BillingViewModel.CardTypeEnum), t)</option>
+                        }
+                        else {
+                            <option value="@t">@Enum.GetName(typeof(Estore.ViewModels.BillingViewModel.CardTypeEnum), t)</option>
+                        }
+                    }
+                </select>
+                <div class="error">@Html.ValidationMessageFor(m => m.CardType)</div>
+            </div>
+
+            <div class="row">
+                <div class="form-group pb-3 col-9">
+                    <label>Карта</label>
+                    <input name="CardNumber" class="form-control" type="text" value="@Model.CardNumber" />
+                    <div class="error">@Html.ValidationMessageFor(m => m.CardNumber)</div>
+                </div>
+                <div class="form-group pb-3 col-3">
+                    <label>CVV</label>
+                    <input name="CVV" class="form-control" type="text" value="@Model.CVV" />
+                    <div class="error">@Html.ValidationMessageFor(m => m.CVV)</div>
+                </div>
+            </div>
+
+            <div class="form-group pb-3">
+                <label>Имя владельца</label>
+                <input name="OwnerName" class="form-control" type="text" value="@Model.OwnerName" />
+                <div class="error">@Html.ValidationMessageFor(m => m.OwnerName)</div>
+            </div>
+
+            <div class="row">
+            <div class="form-group pb-3 col-6">
+                <label>Год действия</label>
+                <input name="ExpYear" class="form-control" type="text" value="@Model.ExpYear" />
+                <div class="error">@Html.ValidationMessageFor(m => m.ExpYear)</div>
+            </div>
+
+            <div class="form-group pb-3 col-6">
+                <label>Месяц</label>
+                <input name="ExpMonth" class="form-control" type="text" value="@Model.ExpMonth" />
+                <div class="error">@Html.ValidationMessageFor(m => m.ExpMonth)</div>
+            </div>
+            </div>
+
+            <button class="button">Сохранить</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h4>В Карзине @ViewBag.Cart.Items.Count товаров</h4>
+        @foreach (var product in ViewBag.Cart.Items)
+        {
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="/product/@product.ProductUniqueId"><img src="@product.ProductImage" class="product-image" /></a>
+                    </div>
+                    <div class="col-md-8">
+                        <b>@product.ProductName</b>
+                        <div>@product.Price руб.</div>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        }
+        
+    </div>
+</div>

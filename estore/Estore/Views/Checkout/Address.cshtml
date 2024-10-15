@@ -1,0 +1,92 @@
+@model Estore.ViewModels.AddressViewModel;
+
+@{
+    ViewData["Title"] = "Адрес доставки товара";
+}
+
+@{
+    await Html.RenderPartialAsync("OrderTabs", OrderTabStep.OrderTabStepEnum.Address);
+}
+
+<h1>Адрес доставки</h1>
+
+<div class="row">
+    <div class="col-md-8">
+        <form action="/checkout/address" method="POST">
+            @Html.AntiForgeryToken()
+            <div class="form-group pb-3">
+                <label>Индекс</label>
+                <input name="ZipCode" class="form-control" type="text" value="@Model.ZipCode" />
+                <div class="error">@Html.ValidationMessageFor(m => m.ZipCode)</div>
+            </div>
+
+            <div class="form-group pb-3">
+                <label>Регион</label>
+                <input name="Region" class="form-control" type="text" value="@Model.Region" />
+                <div class="error">@Html.ValidationMessageFor(m => m.Region)</div>
+            </div>
+
+            <div class="form-group pb-3">
+                <label>Город</label>
+                <input name="City" class="form-control" type="text" value="@Model.City" />
+                <div class="error">@Html.ValidationMessageFor(m => m.City)</div>
+            </div>
+
+            <div class="form-group pb-3">
+                <label>Улица</label>
+                <input name="Street" class="form-control" type="text" value="@Model.Street" />
+                <div class="error">@Html.ValidationMessageFor(m => m.Street)</div>
+            </div>
+
+            <div class="form-group pb-3">
+                <label>Дом</label>
+                <input name="House" class="form-control" type="text" value="@Model.House" />
+                <div class="error">@Html.ValidationMessageFor(m => m.House)</div>
+            </div>
+
+            <div class="form-group pb-3">
+                <label>Квартира</label>
+                <input name="Appartment" class="form-control" type="text" value="@Model.Appartment" />
+                <div class="error">@Html.ValidationMessageFor(m => m.Appartment)</div>
+            </div>
+
+            <div class="form-group pb-3">
+                <label>Получатель</label>
+                <input name="RecieverName" class="form-control" type="text" value="@Model.RecieverName" />
+                <div class="error">@Html.ValidationMessageFor(m => m.RecieverName)</div>
+            </div>
+
+            <div class="form-group pb-3">
+                <label>Телефон</label>
+                <input name="Phone" class="form-control" type="text" value="@Model.Phone" />
+                <div class="error">@Html.ValidationMessageFor(m => m.Phone)</div>
+            </div>
+
+            <div class="form-group pb-3">
+                <label>Email</label>
+                <input name="Email" class="form-control" type="text" value="@Model.Email" />
+                <div class="error">@Html.ValidationMessageFor(m => m.Email)</div>
+            </div>
+
+            <button class="button">Сохранить</button>
+        </form>
+    </div>
+    <div class="col-md-4">
+        <h4>В Карзине @ViewBag.Cart.Items.Count товаров</h4>
+        @foreach (var product in ViewBag.Cart.Items)
+        {
+            <div class="card">
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="/product/@product.ProductUniqueId"><img src="@product.ProductImage" class="product-image" /></a>
+                    </div>
+                    <div class="col-md-8">
+                        <b>@product.ProductName</b>
+                        <div>@product.Price руб.</div>
+                    </div>
+                </div>
+            </div>
+        }
+        
+    </div>
+</div>

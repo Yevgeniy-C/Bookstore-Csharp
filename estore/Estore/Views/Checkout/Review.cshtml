@@ -1,0 +1,37 @@
+@model Estore.ViewModels.AddressViewModel;
+
+@{
+    ViewData["Title"] = "Ваш заказ";
+}
+
+@{
+    await Html.RenderPartialAsync("OrderTabs", OrderTabStep.OrderTabStepEnum.Review);
+}
+
+<h1>Ваш заказ</h1>
+
+<div class="row">
+    <div class="col-md-6">
+        @{
+            AddressViewModel addressModel = ViewBag.Address;
+        }
+        <h3>Адрес доставки</h3>
+        <p>@addressModel.ZipCode, @addressModel.City<br/>
+        @addressModel.Street, @addressModel.House @addressModel.Appartment<br/>
+        @addressModel.Phone</p>
+    </div>
+    <div class="col-md-6">
+        @{
+            BillingViewModel billingModel = ViewBag.Billing;
+        }
+        <h3>Оплата</h3>
+        <p>@Html.MaskCreditCard(billingModel.CardNumber ?? "") (@billingModel.ExpMonth / @billingModel.ExpYear)<br/>
+        @billingModel.OwnerName</p>
+    </div>
+    <div class="col-md-12">
+        <form action="/checkout/review" method="POST">
+            @Html.AntiForgeryToken()
+            <button class="button">Оформить заказ</button>
+        </form>
+    </div>
+</div>

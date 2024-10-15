@@ -1,0 +1,29 @@
+﻿@model Estore.BL.Models.AuthorDataModel
+
+@{
+    ViewData["Title"] = Model.Author.LastName + "" + Model.Author.FirstName + " " + Model.Author.MiddleName;
+}
+
+<div>
+    <h1>Автор @Model.Author.LastName @Model.Author.FirstName @Model.Author.MiddleName</h1>
+
+    <div class="row">
+        <div class="col-md-2">
+            <img src="@Model.Author.AuthorImage" class="author-image" alt="@Model.Author.AuthorImage" />
+        </div>
+        <div class="col-md-10">
+            <p>@Model.Author.Description</p>
+        </div>
+    </div>
+
+    <hr />
+    <div>
+        <h3>Книги:</h3>
+        <div class="row">
+            @foreach (var product in Model.ProductCards)
+            {
+                await Html.RenderPartialAsync("ProductCard", product);
+            }
+        </div>
+    </div>
+</div>

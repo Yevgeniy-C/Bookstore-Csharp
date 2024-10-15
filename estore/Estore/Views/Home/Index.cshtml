@@ -1,0 +1,89 @@
+﻿@model HomePageViewModel;
+
+@{
+    ViewData["Title"] = "Самый крутой магазин книг БХВ";
+}
+
+<div class="row homeblock text-center">
+    <div class="col-md-4 col-lg-2">
+        <div class="card book-card">
+            <a href="/product-category/kompyutery-i-programmy"><img src="/images/home/computers.jpg" class="homeimage" /></a>
+            <div class="card-body">
+                <a href="/product-category/kompyutery-i-programmy"><div class="card-title">Компьютеры и программы</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-2">
+        <div class="card book-card">
+            <a href="/product-category/tehnicheskie-nauki"><img src="/images/home/tech.jpg" class="homeimage" /></a>
+            <div class="card-body">
+                <a href="/product-category/tehnicheskie-nauki"><div class="card-title">Технические науки</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-2">
+        <div class="card book-card">
+            <a href="/product-category/uchebnaya-literatura"><img src="/images/home/learn.jpg" class="homeimage" /></a>
+            <div class="card-body">
+                <a href="/product-category/uchebnaya-literatura"><div class="card-title">Учебная литература</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-2">
+        <div class="card book-card">
+            <a href="/product-category/dlya-detej"><img src="/images/home/kids.jpg" class="homeimage" /></a>
+            <div class="card-body">
+                <a href="/product-category/dlya-detej"><div class="card-title">Для детей</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-2">
+        <div class="card book-card">
+            <a href="/product-category/dosug"><img src="/images/home/dosug.jpg" class="homeimage" /></a>
+            <div class="card-body">
+                <a href="/product-category/dosug"><div class="card-title">Досуг</div></a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-lg-2">
+        <div class="card book-card">
+            <a href="/product-category/nabory-dlya-mejkerov"><img src="/images/home/sets.jpg" class="homeimage" /></a>
+            <div class="card-body">
+                <a href="/product-category/nabory-dlya-mejkerov"><div class="card-title">Наборы</div></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr/>
+
+<div class="row homeblock">
+    <div class="col-md-6">
+        <img src="/images/home/Django40-790x500-1.jpg" class="homeimage" />
+    </div>
+    <div class="col-md-6">
+        <img src="/images/home/Horoshij_kod_plohoj_kod-790x500-1.jpg" class="homeimage" />
+    </div>
+</div>
+
+<hr />
+
+<h1>Новинки</h1>
+<div class="row">
+    @foreach (var product in Model.NewProducts)
+    {
+        await Html.RenderPartialAsync("ProductCard", product);
+    }
+</div>
+
+
+<hr />
+
+<div class="row homeblock">
+    <div class="col-md-6">
+        <img src="/images/home/banner_saryn_520x240.jpg" class="homeimage" />
+    </div>
+    <div class="col-md-6">
+        <img src="/images/home/Znakomtes-YA-Robot-520x240-2-1.jpg" class="homeimage" />
+    </div>
+</div>
